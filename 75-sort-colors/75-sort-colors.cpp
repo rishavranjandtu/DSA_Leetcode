@@ -15,7 +15,8 @@ public:
         }*/
         /////////////////////////////////////////////
         //O(2N)
-        vector<int> v(3,0);
+       
+        /*vector<int> v(3,0);
         int n=nums.size();
         for(int i=0;i<n;i++)
         {
@@ -29,6 +30,28 @@ public:
             if(i<v[0]) {nums[i]=0;}
             else if(v[0]<=i&&i<v[1]+v[0]){nums[i]=1;}
             else{ nums[i]=2;}
+        }
+        */
+        
+        /////////////////////////////////////////////
+        //O(N)
+        
+        int low=0;
+        int mid=0;
+        int high=nums.size()-1;
+        while(mid<=high)
+        {
+            switch(nums[mid])
+            {
+                case 0: swap(nums[low],nums[mid]);
+                    low++; mid++;
+                    break;
+                    
+                case 1: mid++; break;
+                
+                case 2: swap(nums[mid],nums[high]);
+                         high--;      
+            }
         }
         
     }
