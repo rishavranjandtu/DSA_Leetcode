@@ -19,26 +19,29 @@ public:
             len++;
         }
         
-        ListNode*dummy=new ListNode();
+        ListNode*dummy=new ListNode(0);
         dummy->next=head;
         ListNode*prev=dummy;
         ListNode*curr;
         ListNode*nxt;
+        
         while(len>=k)
         {
             curr=prev->next;
             nxt=curr->next;
-            for(int i=1;i<k;i++)
+            int t=k;
+            while(t>1)
             {
                 curr->next=nxt->next;
                 nxt->next=prev->next;
                 prev->next=nxt;
                 nxt=curr->next;
+                t--;
             }
             prev=curr;
             len-=k;
         }
-        
         return dummy->next;
+        
     }
 };
