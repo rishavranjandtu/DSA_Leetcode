@@ -1,13 +1,13 @@
 class Solution {
 public:
   
-void csum(vector<int> candidates,int target, int ind, set<vector<int>>&ans, vector<int>&v)
+void csum(vector<int> candidates,int target, int ind, vector<vector<int>>&ans, vector<int>&v)
     {
       //if(ind==candidates.size())
        {
            if(target==0)
            {
-               ans.insert(v);
+               ans.push_back(v);
                return;
            }
            
@@ -29,15 +29,10 @@ void csum(vector<int> candidates,int target, int ind, set<vector<int>>&ans, vect
     
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         sort(candidates.begin(), candidates.end());
-        set<vector<int>>ans;
+        vector<vector<int>>ans;
         vector<int> v;
         csum(candidates,target,0,ans,v);
         
-        vector<vector<int>> d;
-        for(auto x:ans)
-        {
-            d.push_back(x);
-        }
-        return d;
+        return ans;
     }
 };
