@@ -18,7 +18,7 @@ public:
             
             else
             {
-                if(target>=a[mid+1]&&target<=a[h]) l=mid+1;
+                if(target>=a[mid]&&target<=a[h]) l=mid+1;
                 else h=mid-1;
             }
             
