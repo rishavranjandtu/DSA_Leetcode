@@ -2,29 +2,26 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(),nums.end());
+        set<vector<int>> v;
         vector<vector<int>> ans;
-        set<vector<int>>s;
-        for(int i=0;i<nums.size();i++)
+        int n=nums.size();
+        for(int i=0;i<n;i++)
         {
-            int x=i+1;
-            int y=nums.size()-1;
-            int t=nums[i];
-            
+            int x=i+1,y=n-1;
             while(x<y)
             {
-                int sum=t+nums[x]+nums[y];
-                if(sum<0) x++;
-                else if(sum>0) y--;
-                else
+                int sum=nums[i]+nums[x]+nums[y];
+                if(sum==0)
                 {
-                    s.insert({nums[i],nums[x],nums[y]});
+                    v.insert({nums[i],nums[x],nums[y]});
                     x++;
                     y--;
                 }
+                else if(sum>0) y--;
+                else x++;
             }
         }
-        
-        for(auto &x:s)
+        for(auto x:v)
         {
             ans.push_back(x);
         }
