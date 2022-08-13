@@ -1,28 +1,27 @@
 class Solution {
 public:
-    vector<string> stringtoword(string s)
-    {
-        vector<string> f;
-        string word;
-        
-        stringstream v(s);
-        while(v>>word)
-        {
-            f.push_back(word);
-        }
-        return f;
-    }
-    
-    
-    
     string reverseWords(string s) {
-       vector<string> g= stringtoword(s);
-        int n=g.size();
-        string ans="";
-        for(int i=n-1;i>=0;i--)
+        int n=s.size();
+        stack<string> v;
+        int i=0;
+        for(int i=0;i<n;i++)
         {
-            ans=ans+g[i];
-           if(i!=0) ans=ans+" ";
+            string a;
+            if(s[i]==' ') continue;
+            while(i<n&&s[i]!=' ')
+            {
+                a=a+s[i];
+                i++;
+            }
+             v.push(a);
+        }
+        string ans="";
+        while(!v.empty())
+        {
+            
+            ans=ans+v.top();
+            v.pop();
+            if(!v.empty()) ans=ans+ ' ';
         }
         return ans;
     }
