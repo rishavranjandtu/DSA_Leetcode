@@ -1,32 +1,29 @@
 class Solution {
 public:
-    
-    void csum(vector<int> candidates,int target, int ind, vector<vector<int>>&ans, vector<int>&v)
+    void f(int i,int target,vector<int>& candidates,vector<int>&a, vector<vector<int>>&ans)
     {
-       if(ind==candidates.size())
-       {
-           if(target==0)
-           {
-               ans.push_back(v);
-           }
-           return;
-       }
-        
-        if(candidates[ind]<=target)
+        if(i==candidates.size())
         {
-            v.push_back(candidates[ind]);
-            csum(candidates,target-candidates[ind],ind,ans,v);
-            v.pop_back();
+            if(target==0)
+            {
+                ans.push_back(a);
+            }
+            return;
         }
-      
-          csum(candidates,target,ind+1,ans,v);
-    }
         
+        if(candidates[i]<=target)
+        {
+            a.push_back(candidates[i]);
+            f(i,target-candidates[i],candidates,a,ans);
+            a.pop_back();
+        }
+         f(i+1,target,candidates,a,ans);
+        
+    }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>>ans;
-        vector<int> v;
-    
-        csum(candidates,target,0,ans,v);
+        vector<int> a;
+        f(0,target,candidates,a,ans);
         return ans;
     }
 };
