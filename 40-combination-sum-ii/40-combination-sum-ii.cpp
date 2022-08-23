@@ -1,38 +1,26 @@
 class Solution {
 public:
-  
-void csum(vector<int> candidates,int target, int ind, vector<vector<int>>&ans, vector<int>&v)
+    void comb(int ind,vector<int>& candidates, int target,vector<vector<int>>&ans, vector<int>&a)
     {
-      //if(ind==candidates.size())
-       {
-           if(target==0)
-           {
-               ans.push_back(v);
-               return;
-           }
-           
-       }
-     
-     for(int i=ind;i<candidates.size();i++)
-     {
-          if (i > ind && candidates[i] == candidates[i - 1]) continue;
-          if (candidates[i] > target) break;
-        if(candidates[i]<=target)
+        if(target==0)
         {
-            v.push_back(candidates[i]);
-            csum(candidates,target-candidates[i],i+1,ans,v);
-            v.pop_back();
+            ans.push_back(a);
+            return ;
         }
-     }
-          
+        for(int i=ind;i<candidates.size();i++)
+        {
+            if(i!=ind&&candidates[i]==candidates[i-1]) continue;
+            if(target<candidates[i]) break;
+            a.push_back(candidates[i]);
+            comb(i+1,candidates,target-candidates[i],ans,a);
+            a.pop_back();
+        }
     }
-    
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(), candidates.end());
-        vector<vector<int>>ans;
-        vector<int> v;
-        csum(candidates,target,0,ans,v);
-        
+        sort(candidates.begin(),candidates.end());
+        vector<vector<int>> ans;
+        vector<int> a;
+        comb(0,candidates,target,ans,a);
         return ans;
     }
 };
