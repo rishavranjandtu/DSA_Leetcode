@@ -1,27 +1,28 @@
 class Solution {
 public:
-    bool check(string s, int st, int e)
+    bool check(string s, int i)
     {
-        while(st<=e)
-        {
-            if(s[st++]!=s[e--]) return false;
+       int k=0;
+        while(k<=i){
+            if(s[k++]!=s[i--]) return false;
         }
         return true;
     }
-    void palin(int ind, vector<vector<string>>&ans, vector<string>&a,string s)
+    void palin(string s,vector<vector<string>>&ans,vector<string>&a)
     {
-        if(ind==s.size())
+        if(s.size()==0)
         {
             ans.push_back(a);
             return ;
         }
         
-        for(int i=ind;i<s.size();i++)
+        for(int i=0;i<s.size();i++)
         {
-            if(check(s,ind,i))
+            if(check(s,i))
             {
-                a.push_back(s.substr(ind,i-ind+1));
-                palin(i+1,ans,a,s);
+                a.push_back(s.substr(0,i+1));
+                string b=s.substr(i+1,s.size()-1-i);
+                palin(b,ans,a);
                 a.pop_back();
             }
         }
@@ -29,7 +30,7 @@ public:
     vector<vector<string>> partition(string s) {
         vector<vector<string>>ans;
         vector<string> a;
-        palin(0,ans,a,s);
+        palin(s,ans,a);
         return ans;
     }
 };
