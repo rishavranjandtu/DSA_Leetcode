@@ -1,41 +1,35 @@
 class Solution {
 public:
-    
-    bool palindrome(string prefix)
+    bool check(string s, int st, int e)
     {
-        int l=0;
-        int r=prefix.size()-1;
-        while(l<r)
+        while(st<=e)
         {
-            if(prefix[l]!=prefix[r])
-            { return false;}
-            l++;r--;
+            if(s[st++]!=s[e--]) return false;
         }
         return true;
     }
-    void solve(string s,vector<vector<string>>&ans,vector<string>&v)
+    void palin(int ind, vector<vector<string>>&ans, vector<string>&a,string s)
     {
-        if(s.size()==0)
+        if(ind==s.size())
         {
-            ans.push_back(v);
-            return;
+            ans.push_back(a);
+            return ;
         }
-        for(int i=0;i<s.size();i++)
+        
+        for(int i=ind;i<s.size();i++)
         {
-            string prefix=s.substr(0,i+1);
-            string left=s.substr(i+1);
-            if(palindrome(prefix))
+            if(check(s,ind,i))
             {
-                v.push_back(prefix);
-                solve(left,ans,v);
-                v.pop_back();
+                a.push_back(s.substr(ind,i-ind+1));
+                palin(i+1,ans,a,s);
+                a.pop_back();
             }
         }
     }
     vector<vector<string>> partition(string s) {
         vector<vector<string>>ans;
-        vector<string>v;
-        solve(s,ans,v);
+        vector<string> a;
+        palin(0,ans,a,s);
         return ans;
     }
 };
