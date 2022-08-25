@@ -1,67 +1,43 @@
 class Solution {
 public:
-    
-    bool place(vector<vector<char>>& b, int n,int i, int j,char k)
+    bool check(int i, int j,vector<vector<char>>& board,int n,char c)
     {
-        //row or col
-        for(int z=0;z<n;z++)
+        for(int k=0;k<n;k++)
         {
-            if(b[i][z]==k||b[z][j]==k)
-            {
-                return false;
-            }
+            if(board[i][k]==c||board[k][j]==c) return false;
         }
-        
         int sx=(i/3)*3;
         int sy=(j/3)*3;
         for(int x=sx;x<sx+3;x++)
         {
             for(int y=sy;y<sy+3;y++)
             {
-                if(b[x][y]==k)
-                {
-                    return false;
-                }
+                if(board[x][y]==c) return false;
             }
         }
-        
         return true;
     }
-    
-    bool suduko(vector<vector<char>>& b,int n,int i, int j)
+    bool suduko(int i, int j,vector<vector<char>>& board, int n)
     {
-        //bc
         if(i==n) return true;
         
-        if(j==n) 
-        {
-            return suduko(b,n,i+1,0);
-        }
+        if(j==n) return suduko(i+1,0,board,n);
         
-        if(b[i][j]!='.')
-        {
-            return suduko(b,n,i,j+1);
-        }
+        if(board[i][j]!='.') return suduko(i,j+1,board,n);
         
-        //rc
-        for(char k='1';k<='9';k++)
+        for(char c='1';c<='9';c++)
         {
-            if(place(b,n,i,j,k))
+            if(check(i,j,board,n,c))
             {
-                b[i][j]=k;
-                bool next=suduko(b,n,i,j+1);
-                if(next)
-                {
-                    return true;
-                }
+                board[i][j]=c;
+                if(suduko(i,j+1,board,n)) return true;
             }
         }
-        b[i][j]='.';
+        board[i][j]='.';
         return false;
     }
-    
-    void solveSudoku(vector<vector<char>>& b) {
-        int n=b.size();
-        suduko(b,n,0,0);
+    void solveSudoku(vector<vector<char>>& board) {
+        int n=board.size();
+        suduko(0,0,board,n);
     }
 };
