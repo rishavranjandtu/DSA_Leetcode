@@ -9,23 +9,21 @@ public:
     void push(int x) {
         while(!a.empty())
         {
-            int e=a.top();
+            b.push(a.top());
             a.pop();
-            b.push(e);
         }
         a.push(x);
         while(!b.empty())
         {
-            int e=b.top();
+            a.push(b.top());
             b.pop();
-            a.push(e);
         }
     }
     
     int pop() {
         int e=a.top();
         a.pop();
-        return e;
+             return e;
     }
     
     int peek() {
