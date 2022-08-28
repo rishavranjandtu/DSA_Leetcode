@@ -7,15 +7,14 @@ public:
     }
     
     int next(int price) {
-        
-        while(!s.empty()&&price>=s.top().second)
+        while(!s.empty()&&price>=s.top().first)
         {
             s.pop();
         }
-        int res=s.empty()?i+1:i-s.top().first;
-         s.push(make_pair(i,price));
-        i++;
-        return res;
+        int ans=s.empty()?i+1:i-s.top().second;
+        s.push({price,i++});
+        return ans;
+        
     }
 };
 
