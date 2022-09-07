@@ -1,22 +1,29 @@
 class Solution {
 public:
-    void perm(int ind,vector<vector<int>>&ans,vector<int>&nums){
+    void p(int ind,vector<int>& nums, vector<vector<int>>&ans, vector<int>&v,vector<int>&freq)
+    {
         if(ind==nums.size())
         {
-            ans.push_back(nums);
+            ans.push_back(v);
             return;
         }
-        for(int i=ind;i<nums.size();i++)
+        for(int i=0;i<nums.size();i++)
         {
-           swap(nums[i],nums[ind]);
-            perm(ind+1,ans,nums);
-            swap(nums[i],nums[ind]);
+            if(freq[i]==0)
+            {
+                v.push_back(nums[i]);
+                freq[i]=1;
+                p(ind+1,nums,ans,v,freq);
+                freq[i]=0;
+                v.pop_back();
+            }
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>>ans;
-        perm(0,ans,nums);
+        vector<int> freq(nums.size());
+        vector<int>v;
+        p(0,nums,ans,v,freq);
         return ans;
-        
     }
 };
