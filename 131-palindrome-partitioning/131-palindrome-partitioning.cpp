@@ -1,36 +1,36 @@
 class Solution {
 public:
-    bool check(string s, int i)
+    bool checkp(int i, int j, string s)
     {
-       int k=0;
-        while(k<=i){
-            if(s[k++]!=s[i--]) return false;
+        while(i<=j)
+        {
+            if(s[i++]!=s[j--]) return false;
         }
         return true;
     }
-    void palin(string s,vector<vector<string>>&ans,vector<string>&a)
+    void perm(int ind, vector<vector<string>>&ans,vector<string>&v, string s)
     {
-        if(s.size()==0)
+        if(ind==s.size())
         {
-            ans.push_back(a);
-            return ;
+            ans.push_back(v);
+            return;
         }
         
-        for(int i=0;i<s.size();i++)
+        
+        for(int i=ind;i<s.size();i++)
         {
-            if(check(s,i))
+            if(checkp(ind,i,s))
             {
-                a.push_back(s.substr(0,i+1));
-                string b=s.substr(i+1,s.size()-1-i);
-                palin(b,ans,a);
-                a.pop_back();
+                v.push_back(s.substr(ind,i-ind+1));
+                perm(i+1,ans,v,s);
+                v.pop_back();
             }
         }
     }
     vector<vector<string>> partition(string s) {
         vector<vector<string>>ans;
-        vector<string> a;
-        palin(s,ans,a);
+        vector<string>v;
+        perm(0,ans,v,s);
         return ans;
     }
 };
