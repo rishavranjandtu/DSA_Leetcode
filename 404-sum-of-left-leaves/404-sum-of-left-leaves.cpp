@@ -12,10 +12,18 @@
 class Solution {
 public:
     int sum=0;
+    void cal(TreeNode* root,char c)
+    {
+        if(root==NULL) return;
+        
+        cal(root->left,'l');
+        if(root->left==NULL&&root->right==NULL&&c=='l') sum+=root->val;
+        cal(root->right,'r');
+    }
     int sumOfLeftLeaves(TreeNode* root) {
         
        //bfs
-        queue<pair<TreeNode*,char>>q;
+        /*queue<pair<TreeNode*,char>>q;
         q.push({root,'x'});
         while(!q.empty())
         {
@@ -33,6 +41,11 @@ public:
             }
         }
         return sum;
+        */
         
+        //dfs
+        char c='x';
+        cal(root,c);
+        return sum;
     }
 };
