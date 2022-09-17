@@ -21,24 +21,20 @@ public:
             l2 = l2->next;
         }
         
-        int carry = 0, first, second;
+        int carry = 0;
         ListNode* head = NULL;
         while (!s1.empty() || !s2.empty() || carry) {
+            int temp=carry;
             if (!s1.empty()) {
-                first = s1.top();
+                temp+=s1.top();
                 s1.pop();
             }
-            else
-                first = 0;
-            
+           
             if (!s2.empty()) {
-                second = s2.top();
+                temp+=s2.top();
                 s2.pop();
             }
-            else
-                second = 0;
             
-            int temp = first+second+carry;
             ListNode* node = new ListNode(temp%10);
             node->next = head;
             head = node;
