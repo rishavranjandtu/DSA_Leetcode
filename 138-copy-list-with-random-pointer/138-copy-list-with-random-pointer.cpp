@@ -16,23 +16,24 @@ public:
 
 class Solution {
 public:
+    unordered_map<Node*,Node*>m;
     Node* copyRandomList(Node* head) {
-        map<Node*,Node*> m;
         Node*tmp=head;
-        
-        while(tmp)
+        while(tmp!=NULL)
         {
-            m[tmp]=new Node(tmp->val);
+            Node*n=new Node(tmp->val);
+            m[tmp]=n;
             tmp=tmp->next;
         }
         
         tmp=head;
-         while(tmp)
+        while(tmp!=NULL)
         {
             m[tmp]->next=m[tmp->next];
-             m[tmp]->random=m[tmp->random];
-             tmp=tmp->next;
+            m[tmp]->random=m[tmp->random];
+            tmp=tmp->next;
         }
         return m[head];
+        
     }
 };
