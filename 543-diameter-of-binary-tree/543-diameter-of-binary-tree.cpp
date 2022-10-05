@@ -12,17 +12,17 @@
 class Solution {
 public:
     int maxx=INT_MIN;
-    int dia(TreeNode* root)
+    int  find(TreeNode* root)
     {
         if(root==NULL) return 0;
         
-        int l=dia(root->left);
-        int r=dia(root->right);
+        int l=find(root->left);
+        int r=find(root->right);
         maxx=max(maxx,l+r);
-        return 1+max(l,r);
+        return max(l,r)+1;
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        dia(root);
+        find(root);
         return maxx;
         
     }
