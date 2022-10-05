@@ -13,12 +13,12 @@ class Solution {
 public:
     int sum=0;
     int rangeSumBST(TreeNode* root, int low, int high) {
-        //inorder traversal
-        if(root==NULL) return sum;
+        //preorder
+        if(root==NULL) return 0;
         rangeSumBST(root->left,low,high);
         if(root->val>=low&&root->val<=high)
         {
-            sum=sum+root->val;
+            sum+=root->val;
         }
         rangeSumBST(root->right,low,high);
         return sum;
