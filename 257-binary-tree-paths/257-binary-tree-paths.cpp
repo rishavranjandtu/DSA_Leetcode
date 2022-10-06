@@ -12,7 +12,7 @@
 class Solution {
 public:
     vector<string> ans;
-    void path(TreeNode*root, string s)
+    void path(string s,TreeNode* root)
     {
         if(root==NULL) return;
         if(root->left==NULL&&root->right==NULL)
@@ -21,13 +21,12 @@ public:
             return;
         }
         
-        path(root->left,s+to_string(root->val)+"->");
-        path(root->right,s+to_string(root->val)+"->");
-        
+        path(s+to_string(root->val)+"->",root->left);
+        path(s+to_string(root->val)+"->",root->right);
     }
     vector<string> binaryTreePaths(TreeNode* root) {
-        string s="";
-        path(root,s);
+    string s="";
+    path(s,root);
         return ans;
         
     }
