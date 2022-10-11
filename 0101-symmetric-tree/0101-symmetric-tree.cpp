@@ -13,8 +13,7 @@ class Solution {
 public:
     bool check(TreeNode* l,TreeNode* r)
     {
-        if(l==NULL||r==NULL) return l==r;
-        if(l->val!=r->val) return false;
+        if(l==NULL||r==NULL||l->val!=r->val) return l==r;
         
         return check(l->right,r->left)&&check(l->left,r->right);
     }
