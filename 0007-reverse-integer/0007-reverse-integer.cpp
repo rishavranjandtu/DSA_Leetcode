@@ -1,15 +1,35 @@
 class Solution {
 public:
-    int reverse(int x) {
-        int a;
-        long long y=0;
-        
-        while(x!=0)
-        {
-            a=x%10;
-            y=y*10+a;
-            x=x/10;
+   int reverse(long long int x) {
+        long long int num1 = 0;
+        if (x >0 && x <= pow(2,31) -1) {
+            while(x >0) {
+                num1 = num1 * 10 + x%10;
+                if (num1 > (pow(2,31) - 1)) {
+                    return 0;
+                }
+                x = x / 10;
+            }
         }
-         return (y<INT_MIN||y>INT_MAX)? 0:y;
+        else if(x<0 && x >= -pow(2,31)) {
+            if (x == -pow(2,31)) {
+                num1 = 0;
+            }
+            else {
+                x = abs(x);
+                while(x >0) {
+                    num1 = num1 * 10 + x%10;
+                    if (num1 >(pow(2,31))) {
+                        return 0;
+                    }
+                    x = x / 10;
+                }
+                num1 = -num1;
+            }
+        }
+        else {
+           num1 = 0;
+        }
+        return num1;
     }
 };
