@@ -12,35 +12,35 @@
 class Solution {
 public:
     int countNodes(TreeNode* root) {
-        
-        if(root==NULL) return 0;
-        
-        int l=fhl(root);
-        int r=fhr(root);
-        
-        if(l==r) return (1<<l)-1;
-        return 1+countNodes(root->left)+countNodes(root->right);
+    if(root==NULL) return 0;
+      
+      int l=ll(root);
+      int r=rr(root);
+      
+      if(l==r) return (1<<l)-1;
+      return 1+countNodes(root->left)+countNodes(root->right);
     }
-    
-    int fhl(TreeNode* r)
+  
+     int ll(TreeNode* l)
+     {
+       int c=0;
+       while(l)
+       {
+         c++;
+         l=l->left;
+       }
+       return c;
+     }
+  
+  int rr(TreeNode*r)
+  {
+    int c=0;
+    while(r)
     {
-        int c=0;
-        while(r!=NULL)
-        {
-            c++;
-            r=r->left;
-        }
-        return c;
+      c++;
+      r=r->right;
     }
-    int fhr(TreeNode* r)
-    {
-        int c=0;
-        while(r!=NULL)
-        {
-            c++;
-            r=r->right;
-        }
-        return c;
-    }
-    
+    return c;
+  }
+  
 };
