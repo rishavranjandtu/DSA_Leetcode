@@ -1,14 +1,15 @@
 class Solution {
 public:
-    int climbStairs(int n) {
-        vector<int>v(46);
-       v[0]=1;
-       v[1]=1;
-      for(int i=2;i<=n;i++)
-      {
-        v[i]=v[i-1]+v[i-2];
-      }
-      return v[n];
+    int h(int n, vector<int>&dp,int i)
+    {
+      if(i==0||i==1) return 1;
       
+      if(dp[i]!=-1) return dp[i];
+      return dp[i]=h(n,dp,i-1)+h(n,dp,i-2);
+    }
+    int climbStairs(int n) {
+      vector<int>dp(46,-1);
+      int ans=h(n,dp,n);
+        return ans;
     }
 };
