@@ -1,6 +1,7 @@
 class Solution {
 public:
     bool detectCapitalUse(string word) {
+      int n=word.size();
         int cap=0;
       int index=-1;
       for(int i=0;i<word.size();i++)
@@ -12,9 +13,6 @@ public:
         }
         
       }
-      if(cap==0) return true;
-      else if(cap==word.size()) return true;
-      else if(cap==1&&index==0) return true;
-      return false;
+     return (cap==n||cap==0||index==0&&cap==1);
     }
 };
