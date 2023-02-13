@@ -1,11 +1,6 @@
 class Solution {
 public:
-    int countOdds(int low, int high) {
-      int ans=0;
-        for(int i=low;i<=high;i++)
-        {
-          if(i%2!=0) ans++;
-        }
-      return ans;
+    int countOdds(int l, int h) {
+        return ((h+1)/2)-(l/2);
     }
 };
