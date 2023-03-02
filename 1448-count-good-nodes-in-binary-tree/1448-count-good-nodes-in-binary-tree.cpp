@@ -11,23 +11,17 @@
  */
 class Solution {
 public:
-    int ans=0;
-    void check(TreeNode*root,int limit)
-    {
-        if(root==NULL) return;
-        
-        if(root->val>=limit)
-        {
-            ans++;
-            limit=root->val;
-        }
-        check(root->left,limit);
-        check(root->right,limit);
-        
-    }
+  int ans=0;
+  void fun(TreeNode*root, int maxx)
+  {
+    if(root==NULL) return;
+    
+    if(root->val>=maxx) ans++;
+    fun(root->left,max(root->val,maxx));
+    fun(root->right, max(root->val,maxx));
+  }
     int goodNodes(TreeNode* root) {
-        int limit=INT_MIN;
-         check(root,limit);
-        return ans;
+         fun(root,root->val);
+      return ans;
     }
 };
