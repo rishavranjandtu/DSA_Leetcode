@@ -7,11 +7,11 @@ public:
       
       int l=0;
       int h=n-1;
-      while(l<=h)
+      while(l<h)
       {
         int m=(l+h)/2;
-       if(nums[0]<=nums[m]) l=m+1;
-        else h=m-1;
+       if(nums[m]<nums[h]) h=m;
+        else l=m+1;
       }
       return nums[l];
     }
