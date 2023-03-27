@@ -11,13 +11,14 @@
  */
 class Solution {
 public:
-    bool check(TreeNode* l,TreeNode* r)
+    bool check(TreeNode*a,TreeNode*b)
     {
-        if(l==NULL||r==NULL||l->val!=r->val) return l==r;
-        
-        return check(l->right,r->left)&&check(l->left,r->right);
+      if(a==NULL||b==NULL||a->val!=b->val) return a==b;
+      return check(a->left,b->right)&&check(a->right,b->left);
+      
     }
     bool isSymmetric(TreeNode* root) {
-        return check(root->left,root->right);
+      return check(root->left, root->right);
+        
     }
 };
