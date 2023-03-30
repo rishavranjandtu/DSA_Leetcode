@@ -1,23 +1,24 @@
 class Solution {
 public:
-    bool canFinish(int n, vector<vector<int>>& p) {
-        vector<vector<int>>v(n);
-      for(int i=0;i<p.size();i++)
+    bool canFinish(int n, vector<vector<int>>& pre) {
+      vector<vector<int>>adj(n);
+      for(auto x:pre)
       {
-        v[p[i][0]].push_back(p[i][1]);
+        adj[x[1]].push_back(x[0]);
       }
-      vector<int>in(n,0);
-      for(int i=0;i<v.size();i++)
+      vector<int>ind(n,0);
+      for(int i=0;i<n;i++)
       {
-        for(auto x:v[i])
+        for(auto x:adj[i])
         {
-          in[x]++;
+          ind[x]++;
         }
       }
+      
       queue<int>q;
       for(int i=0;i<n;i++)
       {
-        if(in[i]==0) q.push(i);
+        if(ind[i]==0) q.push(i);
       }
       vector<int>ans;
       while(!q.empty())
@@ -25,14 +26,15 @@ public:
         int f=q.front();
         q.pop();
         ans.push_back(f);
-        for(auto x:v[f])
+        for(auto x:adj[f])
         {
-          in[x]--;
-          if(in[x]==0) q.push(x);
+          ind[x]--;
+          if(ind[x]==0) q.push(x);
         }
+        
       }
-      
       if(ans.size()==n) return true;
       return false;
+        
     }
 };
