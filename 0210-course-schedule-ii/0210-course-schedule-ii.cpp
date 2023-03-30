@@ -20,22 +20,19 @@ public:
       {
         if(ind[i]==0) q.push(i);
       }
+    // vector<int>ans;
       while(!q.empty())
       {
         int f=q.front();
-        ans.push_back(f);
         q.pop();
+        ans.push_back(f);
         for(auto x:adj[f])
         {
           ind[x]--;
           if(ind[x]==0) q.push(x);
         }
       }
-      
-      for(int i=0;i<n;i++)
-      {
-        if(ind[i]!=0) return {};
-      }
-        return ans;
+     if(n==ans.size()) return ans;
+      else return {};
     }
 };
