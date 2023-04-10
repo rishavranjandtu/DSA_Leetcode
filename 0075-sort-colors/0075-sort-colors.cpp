@@ -5,13 +5,11 @@ public:
       int n=nums.size();
      for(auto x:nums) v[x]++;
       int j=0;
-      for(int i=0;i<3;i++)
+      for(int i=0;i<n;i++)
       {
-        while(v[i]>0)
-        {
-          nums[j++]=i;
-          v[i]--;
-        }
+        if(i<v[0]) nums[i]=0;
+        else if(i>=v[0]&&i<(v[0]+v[1]))nums[i]=1;
+        else nums[i]=2;
       }
     }
 };
