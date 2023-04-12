@@ -10,29 +10,24 @@
  */
 class Solution {
 public:
+  ListNode*fun(ListNode* l1, ListNode* l2)
+  {
+    if(l1==NULL) return l2;
+    if(l2==NULL) return l1;
+    
+    ListNode*h=new ListNode();
+    if(l1->val<l2->val)
+    {
+      h->val=l1->val;
+      h->next=fun(l1->next,l2);
+    }
+    else {h->val=l2->val; h->next=fun(l1,l2->next);}
+    return h;
+  }
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
       ListNode*h=new ListNode(0);
-      ListNode*ans=h;
-      ListNode*a=list1;
-      ListNode*b=list2;
-      while(a!=NULL&&b!=NULL)
-      {
-        if(a->val<b->val)
-        {
-          h->next=new ListNode(a->val);
-          h=h->next;
-          a=a->next;
-        }
-        else
-        {
-          h->next=new ListNode(b->val);
-          h=h->next;
-          b=b->next;
-        }
-      }
-      if(a!=NULL) h->next=a;
-      else if(b!=NULL) h->next=b;
-      return ans->next;
+      h->next=fun(list1,list2);
+      return h->next;
         
     }
 };
