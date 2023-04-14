@@ -30,12 +30,10 @@ public:
         tmp=tmp->next;
       }
       tmp=head;
-      Node*a=ans->next;
-      while(a)
+      while(tmp)
       {
-        a->random=m[tmp->random];
+        m[tmp]->random=m[tmp->random];
         tmp=tmp->next;
-        a=a->next;
       }
       return ans->next;
         
