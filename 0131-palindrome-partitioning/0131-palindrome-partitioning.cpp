@@ -1,6 +1,6 @@
 class Solution {
 public:
-  bool ispalindrome(string s)
+  bool check(string s)
   {
     int l=0;
     int r=s.size()-1;
@@ -10,30 +10,31 @@ public:
     }
     return true;
   }
-  void fun(string s, vector<string>&v, vector<vector<string>>&ans)
+  vector<vector<string>>ans;
+  void fun(int i, int n, string s, vector<string>&v)
   {
-    if(s.size()==0)
+    if(i==n)
     {
       ans.push_back(v);
       return;
     }
+      
     string a="";
-    for(int i=0;i<s.size();i++)
+    for(int j=i;j<n;j++)
     {
-      a=a+s[i];
-      string l=s.substr(i+1);
-      if(ispalindrome(a))
+      a=s.substr(i,j-i+1);
+      if(check(a)==true)
       {
         v.push_back(a);
-        fun(l,v,ans);
+        fun(j+1,n,s,v);
         v.pop_back();
       }
     }
   }
     vector<vector<string>> partition(string s) {
-        vector<string>v;
-      vector<vector<string>>ans;
-      fun(s,v,ans);
-      return ans;
+      int n=s.size();
+      vector<string>v;
+      fun(0,n,s,v);
+        return ans;
     }
 };
