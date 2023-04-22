@@ -1,13 +1,12 @@
 class Solution {
 public:
-  set<vector<int>>s;
   vector<vector<int>>ans;
   int n;
   void perm(int i, vector<int>&nums)
   {
     if(i==n)
     {
-      s.insert(nums);
+     ans.push_back(nums);
       return;
     }
     
@@ -21,10 +20,6 @@ public:
     vector<vector<int>> permute(vector<int>& nums) {
        n=nums.size();
       perm(0,nums);
-      for(auto x:s)
-      {
-        ans.push_back(x);
-      }
       return ans;
       
         
