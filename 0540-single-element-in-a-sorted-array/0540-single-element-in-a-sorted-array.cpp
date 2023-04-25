@@ -1,23 +1,23 @@
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& a) {
-        int l=0;
-      int e=a.size()-1;
-      if(a.size()==1) return a[0];
-      while(l<=e)
+    int singleNonDuplicate(vector<int>& nums) {
+      int l=0;
+      int h=nums.size()-1;
+      while(l<h)
       {
-        int m=(l+e)/2;
-        if(m%2==0)
+        int mid=(l+h)/2;
+        if(mid%2==0)
         {
-          if(a[m]==a[m+1]) l=m+1;
-          else e=m-1;
+          if(nums[mid]==nums[mid+1]) l=mid+1;
+          else h=mid;
         }
         else
         {
-          if(a[m]!=a[m+1]) l=m+1;
-          else e=m-1;
+          if(nums[mid]!=nums[mid+1]) l=mid+1;
+          else h=mid;
         }
       }
-      return a[l];
+      return nums[l];
+        
     }
 };
