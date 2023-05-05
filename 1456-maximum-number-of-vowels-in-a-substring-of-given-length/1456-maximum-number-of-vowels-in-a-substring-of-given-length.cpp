@@ -1,24 +1,26 @@
 class Solution {
 public:
-     int fun(vector<int>&m)
+     bool fun(int n)
      {
-       return m[0]+m['e'-'a']+m['i'-'a']+m['o'-'a']+m['u'-'a'];
+       if(n==0||n==4||n==8||n==14||n==20) return true;
+       return false;
      }
     int maxVowels(string s, int k) {
-      vector<int>m(26,0);
+      //vector<int>m(26,0);
       int ans=INT_MIN;
+      int c=0;
       for(int i=0;i<k;i++)
       {
-        m[s[i]-'a']++;
+        if(fun(s[i]-'a')) c++;
       }
-      ans=max(ans,fun(m));
+      ans=max(ans,c);
       int kk=0;
       for(int i=k;i<s.size();i++)
       {
-        m[s[i]-'a']++;
-        m[s[kk]-'a']--;
+       if(fun(s[i]-'a')) c++;
+       if(fun(s[kk]-'a')) c--;
         kk++;
-        ans=max(ans,fun(m));
+        ans=max(ans,c);
       }
       return ans;
         
