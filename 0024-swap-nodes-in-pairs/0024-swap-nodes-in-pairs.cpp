@@ -20,9 +20,9 @@ public:
       {
         tmp=curr->next;
         curr->next=tmp->next;
-        prev->next=tmp;
         tmp->next=curr;
-         prev=curr;
+        prev->next=tmp;
+        prev=curr;
         curr=curr->next;
       }
       return ans->next;
