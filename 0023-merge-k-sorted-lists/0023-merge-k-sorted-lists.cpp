@@ -26,13 +26,12 @@ public:
         auto x=p.top();
         int c=x.first;
         ListNode*n=x.second;
-        ListNode*j=new ListNode(n->val);
         p.pop();
         if(n->next!=NULL)
         {
           p.push({n->next->val,n->next});
         }
-        h->next=j;
+        h->next=n;
         h=h->next;
       }
       return ans->next;
