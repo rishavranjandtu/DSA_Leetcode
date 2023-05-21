@@ -3,38 +3,34 @@ public:
   bool check(string s)
   {
     int l=0;
-    int r=s.size()-1;
-    while(l<r)
+    int h=s.size()-1;
+    while(l<h)
     {
-      if(s[l++]!=s[r--]) return false;
+      if(s[l++]!=s[h--]) return false;
     }
     return true;
   }
   vector<vector<string>>ans;
-  void fun(int i, int n, string s, vector<string>&v)
+  void fun(string s, int n,vector<string>&v)
   {
-    if(i==n)
+    if(n==0) {ans.push_back(v); return;}
+    
+    for(int j=1;j<=n;j++)
     {
-      ans.push_back(v);
-      return;
+    string a=s.substr(0,j);
+    if(check(a))
+    {
+      v.push_back(a);
+      fun(s.substr(j),n-j,v);
+      v.pop_back();
     }
-      
-    string a="";
-    for(int j=i;j<n;j++)
-    {
-      a=s.substr(i,j-i+1);
-      if(check(a)==true)
-      {
-        v.push_back(a);
-        fun(j+1,n,s,v);
-        v.pop_back();
-      }
     }
   }
+    
     vector<vector<string>> partition(string s) {
       int n=s.size();
       vector<string>v;
-      fun(0,n,s,v);
-        return ans;
+       fun(s,n,v);
+      return ans;
     }
 };
