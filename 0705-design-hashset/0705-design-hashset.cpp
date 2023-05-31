@@ -2,7 +2,7 @@ class MyHashSet {
 public:
   vector<list<int>>m;
     MyHashSet() {
-      m.resize(100);
+      m.resize(101);
         
     }
   
