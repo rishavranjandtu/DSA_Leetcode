@@ -11,16 +11,25 @@
  */
 class Solution {
 public:
-    int i=0;
-    TreeNode*make(vector<int>& a, int l)
+    TreeNode *fun(vector<int>&preorder, int l, int h)
     {
-        if(i==a.size()||a[i]>=l) return NULL;
-        TreeNode*n=new TreeNode(a[i++]);
-        n->left=make(a,n->val);
-        n->right=make(a,l);
-        return n;
+      if(l>h) return NULL;
+      int z=-1;
+      TreeNode*node=new TreeNode(preorder[l]);
+      for(int i=l;i<=h;i++)
+      {
+        if(preorder[i]>preorder[l])
+        {
+          z=i;
+          break;
+        }
+      }
+      node->left=z==-1?fun(preorder,l+1,h):fun(preorder,l+1,z-1);
+      node->right=z==-1?NULL:fun(preorder,z,h);
+      return node;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        return make(preorder,INT_MAX);
+        int n=preorder.size();
+        return fun(preorder,0,n-1);
     }
 };
