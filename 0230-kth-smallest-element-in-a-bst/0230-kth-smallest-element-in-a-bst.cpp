@@ -11,18 +11,20 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode *root,int k, priority_queue<int>&p)
+    int c=0;
+    int ans=-1;
+    void dfs(TreeNode *root,int k)
     {
       if(root==NULL) return;
+      dfs(root->left,k);
+      c++;
+      if(c==k){ans=root->val;}
+      dfs(root->right,k);
       
-      p.push(root->val);
-      if(p.size()>k) p.pop();
-      dfs(root->left,k,p);
-      dfs(root->right,k,p);
     }
     int kthSmallest(TreeNode* root, int k) {
-        priority_queue<int>a;
-        dfs(root,k,a);
-      return a.top();
+        dfs(root,k);
+      return ans;
+      
     }
 };
