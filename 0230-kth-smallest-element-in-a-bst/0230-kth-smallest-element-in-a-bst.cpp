@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    int c=0;
-        int a=-1;
-    void find(TreeNode* root, int k)
+    void dfs(TreeNode *root,int k, priority_queue<int>&p)
     {
-        if(root==NULL) return;
-        
-        find(root->left,k);
-        c++; if(c==k) {a=root->val;}
-        find(root->right,k);
+      if(root==NULL) return;
+      
+      p.push(root->val);
+      if(p.size()>k) p.pop();
+      dfs(root->left,k,p);
+      dfs(root->right,k,p);
     }
     int kthSmallest(TreeNode* root, int k) {
-        find(root,k);
-        return a;
+        priority_queue<int>a;
+        dfs(root,k,a);
+      return a.top();
     }
 };
