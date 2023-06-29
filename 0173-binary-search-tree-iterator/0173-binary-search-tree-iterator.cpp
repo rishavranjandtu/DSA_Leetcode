@@ -11,31 +11,50 @@
  */
 class BSTIterator {
 public:
-    stack<TreeNode*>s;
+    queue<TreeNode*>q;
     BSTIterator(TreeNode* root) {
-     pussh(root);
+      TreeNode*curr=root;
+      
+      while(curr!=NULL)
+      {
         
+       if(curr->left)
+       {
+         TreeNode*tmp=curr->left;
+         while(tmp->right!=NULL&&tmp->right!=curr) tmp=tmp->right;
+         
+         if(tmp->right==NULL)
+         {
+           tmp->right=curr;
+           curr=curr->left;
+         }
+         else
+         {
+           tmp->right=NULL;
+           q.push(curr);
+           curr=curr->right;
+         }
+       }
+        else
+        {
+          q.push(curr);
+          curr=curr->right;
+        }
+         
+      }
+      
     }
     
     int next() {
-        TreeNode*n=s.top();
-        s.pop();
-        if(n->right) pussh(n->right);
-        return n->val;
+      if(hasNext()){
+      TreeNode*a=q.front();
+      q.pop();
+      return a->val;}
+      return -1;
     }
     
     bool hasNext() {
-        return !s.empty();
-        
-    }
-    
-    void pussh(TreeNode*root)
-    {
-        while(root)
-        {
-            s.push(root);
-            root=root->left;
-        }
+        return !q.empty();
     }
 };
 
