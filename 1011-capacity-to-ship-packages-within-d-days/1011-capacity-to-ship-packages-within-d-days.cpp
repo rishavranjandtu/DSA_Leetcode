@@ -1,42 +1,33 @@
 class Solution {
 public:
-    int shipWithinDays(vector<int>& weights, int days) {
-        int n=weights.size();
-      int maxx=INT_MIN;
+    int fun(vector<int>&w,int m)
+    {
       int sum=0;
-      for(auto x:weights)
+      int c=1;
+      for(int i=0;i<w.size();i++)
       {
-        sum+=x;
-        maxx=max(maxx,x);
-      }if(days==1) return sum;
-      if(days==n) return maxx;
-      int a=INT_MAX;
-      int l=maxx;
-      int r=sum;
-      while(l<=r)
+        if(sum+w[i]<=m) sum+=w[i];
+        else {c++; sum=w[i];}
+      }
+      return c;
+    }
+    int shipWithinDays(vector<int>& w, int d) {
+      int n=w.size();
+      int minn=*max_element(w.begin(),w.end());
+      int sum=accumulate(w.begin(),w.end(),0);
+      
+      int l=minn;
+      int h=sum;
+      int c=0;
+      while(l<=h)
       {
-        int m=(l+r)/2;
-        int d=1;
-        int s=0;
-        int ans=INT_MIN;
-        for(int i=0;i<n;i++)
-        {
-          if(s+weights[i]<=m) s+=weights[i];
-          else
-          {
-            ans=max(ans,s);
-            //m=min(m,s);
-            s=weights[i];
-            d++;
-           // m=min(m,s);
-          }
-        }
-       // if(s!=0) d++;
-        
-        if(d<=days) {a=min(a,ans); r=m-1;}
+        int m=(l+(h-l)/2);
+        c=fun(w,m);
+        // return m;
+         if(c<=d) h=m-1;
         else l=m+1;
       }
-      //cout<<
-      return a;
+      return l;
+        
     }
 };
