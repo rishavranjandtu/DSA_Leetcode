@@ -28,11 +28,11 @@ public:
       int h=*max_element(b.begin(),b.end());
       int count=0;
       int ans=0;
-      while(l<h)
+      while(l<=h)
       {
         int mid=(l+h)/2;
         count=fun(b,mid,k);
-       if(count>=m) {ans=mid;h=mid;}
+       if(count>=m) {ans=mid;h=mid-1;}
         else l=mid+1;
       }
       return l;
