@@ -1,32 +1,30 @@
 class Solution {
 public:
-     int Calculate(vector<int>& nums,int k){
-        int NumberOfHours=0;
-        for(int i = 0; i < nums.size(); i++){
-            NumberOfHours += (nums[i] % k == 0) ? nums[i] / k : (nums[i] /k)+1;
-        }
-        return NumberOfHours;
+    int fun(vector<int>&piles,int m)
+    {
+      int n=piles.size();
+      long long ans=0;
+      for(int i=0;i<n;i++)
+      {
+        ans+=(piles[i]+m-1)/m;
+      }
+     // cout<<ans<<" "<<m<<endl;
+      return ans;
     }
-    
-    
-    
-    
-    int minEatingSpeed(vector<int>& nums, int H) {
-        int left = 1;
-        int right = 1000000000;
-        while(left < right){
-           int k=(left + right)/2;    
-            
-           int NumberOfHours = Calculate(nums,k);
-            
-            if(NumberOfHours > H) {
-                left = k+1;
-            }
-            else {
-                right = k;
-            }
-        }
-        return left;
+    int minEatingSpeed(vector<int>& piles, int t) {
+     int n=piles.size();
+      int l=1;
+      int h=*max_element(piles.begin(),piles.end());
+      int c=0;
+      int ans=-1;
+      while(l<h)
+      {
+        int m=(l+(h-l)/2);
+        c=fun(piles,m);
+        if(c<=t) {h=m;}
+        else l=m+1;
+      }
+      return h;
         
     }
 };
