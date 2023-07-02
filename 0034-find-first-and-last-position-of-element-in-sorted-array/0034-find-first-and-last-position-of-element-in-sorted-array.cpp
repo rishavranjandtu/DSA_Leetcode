@@ -1,30 +1,57 @@
 class Solution {
 public:
-    vector<int> searchRange(vector<int>& nums, int target) {
-       vector<int> ans;
-        int a=-1;
-        int l=0;
-        int h=nums.size()-1;
-        while(l<=h)
+    int first_fun(vector<int>&nums,int t)
+    {
+      int l=0;
+      int h=nums.size()-1;
+      int ans=-1;
+      while(l<=h)
+      {
+        int m=(l+h)/2;
+        if(nums[m]==t)
         {
-            int mid=(l+h)/2;
-            if(nums[mid]==target) {a=mid;}
-             if(nums[mid]>=target) h=mid-1;
-            else l=mid+1;
+          ans=m;
+          h=m-1;
         }
-        ans.push_back(a);
-        l=0;
-        h=nums.size()-1;
-        a=-1;
-         while(l<=h)
+        else if(nums[m]<t)
         {
-            int mid=(l+h)/2;
-            if(nums[mid]==target) {a=mid; }
-             if(nums[mid]<=target) l=mid+1;
-            else h=mid-1;
+          l=m+1;
         }
-        ans.push_back(a);
-        return ans;
+        else if(nums[m]>t)
+        {
+          h=m-1;
+        }
+      }
+      return ans;
+    }
+  
+    int last_fun(vector<int>&nums,int t)
+    {
+      int l=0;
+      int ans=-1;
+      int h=nums.size()-1;
+      while(l<=h)
+      {
+        int m=(l+h)/2;
+        if(nums[m]==t)
+        {
+          ans=m;
+          l=m+1;
+        }
+        else if(nums[m]>t) h=m-1;
+        else
+        {
+          l=m+1;
+        }
+      }
+      return ans;
+    }
+  
+    vector<int> searchRange(vector<int>& nums, int t) {
+      int n=nums.size();
+      int f=first_fun(nums,t);
+      int l=last_fun(nums,t);
+      return {f,l};
         
     }
 };
