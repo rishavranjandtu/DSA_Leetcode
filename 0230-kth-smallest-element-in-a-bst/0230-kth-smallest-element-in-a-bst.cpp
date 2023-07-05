@@ -15,7 +15,7 @@ public:
     void fun(TreeNode*root, int &k)
     {
       if(root==NULL||k==0) return;
-      if(root->left) fun(root->left,k);
+       fun(root->left,k);
       k--;
       if(k==0) {ans=root->val; return;}
       fun(root->right,k);
