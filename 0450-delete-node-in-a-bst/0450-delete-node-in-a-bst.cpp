@@ -11,48 +11,32 @@
  */
 class Solution {
 public:
-    TreeNode*helper(TreeNode*root)
+    TreeNode* fun(TreeNode* root)
     {
-        if(root->left==NULL) return root->right;
-        
-        else if(root->right==NULL) return root->left;
-        
-        TreeNode*o=root->right;
-        TreeNode*p=root->left;
-        while(p->right!=NULL)
-        {
-            p=p->right;
-        }
-        p->right=o;
-        return root->left;
+          TreeNode*tmp=root->right;
+          if(tmp==NULL) return root->left;
+          while(tmp->left) tmp=tmp->left;
+          tmp->left=root->left;
+          return root->right;
     }
-    TreeNode* deleteNode(TreeNode* root, int key) {
-        if(root==NULL) return NULL;
+    TreeNode* deleteNode(TreeNode* r, int key) {
+      
+      TreeNode*root=r;
+      while(root)
+      {
+        if(root->val==key) return fun(root);
         
-       if(root->val==key) return helper(root);
-        
-        TreeNode*d=root;
-        while(root)
+        else if(root->val<key)
         {
-            if(root->val>key)
-            {
-                if(root->left&&root->left->val==key)
-                {
-                    root->left=helper(root->left);
-                    break;
-                }
-                else root=root->left;
-            }
-            else
-            {
-                if(root->right&&root->right->val==key)
-                {
-                    root->right=helper(root->right);
-                    break;
-                }
-                else root=root->right;
-            }
+          if(root->right&&root->right->val==key) {root->right=fun(root->right); return r;}
+          else root=root->right;
         }
-        return d;
+        else
+        {
+          if(root->left&&root->left->val==key) {root->left=fun(root->left); return r;}
+          else root=root->left;
+        }
+      }
+      return r;
     }
 };
