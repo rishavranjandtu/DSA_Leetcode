@@ -11,20 +11,19 @@
  */
 class Solution {
 public:
-    int c=0;
     int ans=-1;
-    void dfs(TreeNode *root,int k)
+    void fun(TreeNode*root, int &k)
     {
-      if(root==NULL) return;
-      dfs(root->left,k);
-      c++;
-      if(c==k){ans=root->val;}
-      dfs(root->right,k);
-      
+      if(root==NULL||k==0) return;
+      if(root->left) fun(root->left,k);
+      k--;
+      if(k==0) {ans=root->val; return;}
+      fun(root->right,k);
     }
     int kthSmallest(TreeNode* root, int k) {
-        dfs(root,k);
-      return ans;
+        fun(root,k);
+        return ans;
       
+        
     }
 };
