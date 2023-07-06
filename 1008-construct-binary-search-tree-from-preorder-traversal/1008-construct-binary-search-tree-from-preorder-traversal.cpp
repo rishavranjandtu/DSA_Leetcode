@@ -11,25 +11,19 @@
  */
 class Solution {
 public:
-    TreeNode *fun(vector<int>&preorder, int l, int h)
+    int i=0;
+    TreeNode*build(vector<int>&preorder,int l)
     {
-      if(l>h) return NULL;
-      int z=-1;
-      TreeNode*node=new TreeNode(preorder[l]);
-      for(int i=l;i<=h;i++)
-      {
-        if(preorder[i]>preorder[l])
-        {
-          z=i;
-          break;
-        }
-      }
-      node->left=z==-1?fun(preorder,l+1,h):fun(preorder,l+1,z-1);
-      node->right=z==-1?NULL:fun(preorder,z,h);
+      if(i==preorder.size()||preorder[i]>=l) return NULL;
+      TreeNode*node=new TreeNode(preorder[i]);
+      i++;
+      node->left=build(preorder,node->val);
+      node->right=build(preorder,l);
       return node;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        int n=preorder.size();
-        return fun(preorder,0,n-1);
+      return build(preorder,INT_MAX);
+      
+        
     }
 };
