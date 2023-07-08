@@ -16,16 +16,15 @@ public:
       TreeNode*tmp=root;
       while(tmp)
       {
-        
-        if(tmp->val<val) 
+        if(tmp->val>val)
         {
-          if(tmp->right!=NULL)tmp=tmp->right;
-          else {tmp->right=new TreeNode(val); break;}
+          if(tmp->left==NULL){tmp->left=new TreeNode(val); break;}
+          else tmp=tmp->left;
         }
-        else 
+        else
         {
-           if(tmp->left!=NULL)tmp=tmp->left;
-          else {tmp->left=new TreeNode(val); break;}
+          if(tmp->right==NULL) {tmp->right=new TreeNode(val); break;}
+          else tmp=tmp->right;
         }
       }
       return root;
