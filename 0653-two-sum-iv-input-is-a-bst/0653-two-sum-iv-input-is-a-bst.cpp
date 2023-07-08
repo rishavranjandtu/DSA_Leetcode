@@ -14,40 +14,38 @@ public:
     bool findTarget(TreeNode* root, int k) {
       stack<TreeNode*>a;
       stack<TreeNode*>b;
-      
-      TreeNode*tmp=root;
       TreeNode*tmp1=root;
-     
+      TreeNode*tmp2=root;
       while(true)
       {
-         while(tmp) {a.push(tmp); tmp=tmp->left;}
-         while(tmp1){b.push(tmp1); tmp1=tmp1->right;}
-      
-          tmp=a.top();
-          tmp1=b.top();
-        int sum=tmp->val+tmp1->val;
+        while(tmp1) {a.push(tmp1); tmp1=tmp1->left;}
+        while(tmp2) {b.push(tmp2); tmp2=tmp2->right;}
         
-        if(tmp==tmp1) return false;
-        if(sum==k)
-        {
-          if(tmp==tmp1) return false;
-          return true;
-        }
-        else if(sum<k)
-        {
-          a.pop();
-          tmp=tmp->right;
-          tmp1=NULL;
-        }
+        TreeNode*x=a.top();
+        TreeNode*y=b.top();
         
+        int sum=x->val+y->val;
+        if(x==y) return false;
+        if(sum==k) return true;
         else if(sum>k)
         {
           b.pop();
-          tmp1=tmp1->left;
-          tmp=NULL;
+          if(y->left)
+          {
+            tmp2=y->left;
+            tmp1=NULL;
+          }
+        }
+        else
+        {
+          a.pop();
+          if(x->right)
+          {
+            tmp1=x->right;
+            tmp2=NULL;
+          }
         }
       }
         return false;
-        
     }
 };
