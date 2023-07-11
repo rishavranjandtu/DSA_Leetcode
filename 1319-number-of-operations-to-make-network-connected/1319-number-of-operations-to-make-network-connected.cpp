@@ -1,64 +1,62 @@
-class Dis
+class dsu
 {
-    public:
-    vector<int>p;
-    vector<int>rank;
-    Dis(int n)
-    {
-        p.resize(n);
-        rank.resize(n,1);
-        for(int i=0;i<n;i++) p[i]=i;
-    }
+  public:
+  vector<int>p;
+  vector<int>s;
+  dsu(int n)
+  {
+    s.resize(n,1);
+    p.resize(n);
+    for(int i=0;i<n;i++) p[i]=i;
+  }
+  
+  int findp(int u)
+  {
+    if(p[u]==u) return u;
+    return p[u]=findp(p[u]);
+  }
+  
+  void unionbysize(int u,int v)
+  {
+    int p_u=findp(u);
+    int p_v=findp(v);
     
-    int ulp(int x)
+    if(p_u==p_v) return;
+    if(s[p_u]<s[p_v])
     {
-        if(p[x]==x) return x;
-        return p[x]=ulp(p[x]);
+      p[p_u]=p_v;
+      s[p_v]+=s[p_u];
     }
-    
-    void unionbr(int a,int b)
+    else
     {
-        int ua=p[a];
-        int ub=p[b];
-        if(ua==ub) return;
-        
-        if(rank[ua]<rank[ub])
-        {
-            p[ua]=ub;
-        }
-        else  if(rank[ua]>rank[ub])
-        {
-            p[ub]=ua;
-        }
-        else  if(rank[ua]==rank[ub])
-        {
-            p[ub]=ua;
-            rank[ub]++;
-            
-        }
+      p[p_v]=p_u;
+      s[p_u]+=s[p_v];
     }
+  }
+  
 };
+
+
 class Solution {
 public:
-    int makeConnected(int n, vector<vector<int>>& c) {
-      Dis o(n);
-      int ee=0;
-      for(int i=0;i<c.size();i++)
+    int makeConnected(int n, vector<vector<int>>& connections) {
+      dsu d(n);
+      int c=0;
+      int m=connections.size();
+      for(int i=0;i<m;i++)
       {
-        if(o.ulp(c[i][0])!=o.ulp(c[i][1]))
-        {
-        o.unionbr(c[i][0],c[i][1]);
-        }
-        else ee++;
-        
+        int p_u=d.findp(connections[i][0]);
+        int p_v=d.findp(connections[i][1]);
+        if(p_u==p_v) c++;
+        else d.unionbysize(p_u,p_v);
       }
-      int dc=0;
+      set<int>s;
       for(int i=0;i<n;i++)
       {
-        if(o.ulp(i)==i) dc++;
+        s.insert(d.findp(i));
       }
-      if(dc-1<=ee) return dc-1;
-      return -1;
+      if(s.size()-1<=c) return s.size()-1;
+       return -1;
         
     }
 };
