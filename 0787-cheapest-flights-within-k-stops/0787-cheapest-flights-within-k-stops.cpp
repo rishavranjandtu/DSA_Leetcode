@@ -1,34 +1,34 @@
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-      vector<pair<int,int>>adj[n];
-      for(int i=0;i<flights.size();i++)
+        int e=flights.size();
+      vector<vector<pair<int,int>>>v(n);
+      for(int i=0;i<e;i++)
       {
-        adj[flights[i][0]].push_back({flights[i][1],flights[i][2]});
+        v[flights[i][0]].push_back({flights[i][1],flights[i][2]});
       }
       queue<pair<int,pair<int,int>>>q;
+      vector<int>g(n,INT_MAX);
       q.push({0,{src,0}});
-      vector<int>c(n,INT_MAX);
-      c[src]=0;
+      g[src]=0;
       while(!q.empty())
       {
-        int stops=q.front().first;
-        int point=q.front().second.first;
-        int cost=q.front().second.second;
+        int kk=q.front().first;
+        int s=q.front().second.first;
+        int f=q.front().second.second;
         q.pop();
-        if(stops>k) continue;
-        for(auto x:adj[point])
+        if(kk>k) continue;
+        //if(s==dst) return f;
+        for(auto x:v[s])
         {
-          int adjn=x.first;
-          int w=x.second;
-          if(cost+w<c[adjn]&&stops<=k)
+          if(f+x.second<g[x.first])
           {
-            c[adjn]=cost+w;
-            q.push({stops+1,{adjn,c[adjn]}});
+            g[x.first]=f+x.second;
+          q.push({kk+1,{x.first,f+x.second}});
           }
         }
+        
       }
-      if(c[dst]==INT_MAX) return -1;
-      return c[dst];
+      return g[dst]==INT_MAX?-1:g[dst];
     }
 };
