@@ -1,48 +1,43 @@
 class Solution {
 public:
-    int findTheCity(int n, vector<vector<int>>& edges, int t) {
-        vector<vector<int>>dis(n,vector<int>(n,1e8));
+    int findTheCity(int n, vector<vector<int>>& edges, int d) {
+      vector<vector<int>>mat(n,vector<int>(n,INT_MAX));
       for(auto x:edges)
       {
-        dis[x[0]][x[1]]=x[2];
-        dis[x[1]][x[0]]=x[2];
+        mat[x[0]][x[1]]=x[2];
+        mat[x[1]][x[0]]=x[2];
       }
-       for(int i=0;i<n;i++)
-        {
-          for(int j=0;j<n;j++)
-          {
-            
-            if(i==j) dis[i][j]=0;
-         }
-        }
+      for(int i=0;i<n;i++)
+      {
+        mat[i][i]=0;
+      }
       for(int k=0;k<n;k++)
       {
         for(int i=0;i<n;i++)
         {
           for(int j=0;j<n;j++)
           {
-            
-            dis[i][j]=min(dis[i][j],dis[i][k]+dis[k][j]);
+            if(mat[i][k]!=INT_MAX&&mat[k][j]!=INT_MAX)mat[i][j]=min(mat[i][j],mat[i][k]+mat[k][j]);
           }
         }
       }
-      
-      int siz=n;
-      int city=-1;
+      int maxx=INT_MAX;
+      int ans=0;
       for(int i=0;i<n;i++)
       {
-        int d=0;
+        int c=0;
         for(int j=0;j<n;j++)
         {
-          if(dis[i][j]<=t)  d++;
+          if(mat[i][j]<=d&&i!=j) c++;
         }
-        if(d<=siz)
+        cout<<c<<endl;
+        if(c<=maxx)
         {
-          siz=min(siz,d);
-          city=max(city,i);
+          maxx=c;
+          ans=i;
         }
-        
       }
-      return city;
+      return ans;
+        
     }
 };
