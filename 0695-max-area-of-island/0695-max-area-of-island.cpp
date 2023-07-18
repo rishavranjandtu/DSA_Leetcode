@@ -18,8 +18,8 @@ class Dis
     
     void unionbs(int a,int b)
     {
-        int ua=p[a];
-        int ub=p[b];
+        int ua=ulp(a);
+        int ub=ulp(b);
         if(ua==ub) return;
         
         if(s[ua]<s[ub])
@@ -37,54 +37,47 @@ class Dis
 class Solution {
 public:
     int maxAreaOfIsland(vector<vector<int>>& grid) {
+    //connect grp of island to its p.
+      //find ultimate parent //find max size of that parent
       int n=grid.size();
       int m=grid[0].size();
       Dis d(n*m);
-      set<int>v;
-      int dr[4]={0,0,1,-1};
-      int dc[4]={-1,1,0,0};
+     // vector<vector<int>>vis(n,vector<int>(m,0));
+      int r[4]={-1,1,0,0};
+      int c[4]={0,0,-1,1};
       for(int i=0;i<n;i++)
       {
         for(int j=0;j<m;j++)
         {
           if(grid[i][j]==1)
           {
-            int ind_1=i*m+j;
+            int ind=i*m+j;
             for(int k=0;k<4;k++)
             {
-              int nr=i+dr[k];
-              int nc=j+dc[k];
+              int nr=i+r[k];
+              int nc=j+c[k];
               if(nr>=0&&nr<n&&nc>=0&&nc<m&&grid[nr][nc]==1)
               {
-                int ind_2=nr*m+nc;
-                if(d.ulp(ind_1)!=d.ulp(ind_2))
-                {
-                d.unionbs(ind_1,ind_2);
-                }
+               int ind_2=nr*m+nc;
+                d.unionbs(ind,ind_2);
               }
             }
-
-          }
-        }
-      }
-      for(int i=0;i<n;i++)
-      {
-        for(int j=0;j<m;j++)
-        {
-          if(grid[i][j]==1)
-          {
-           v.insert(d.ulp(i*m+j));
           }
         }
       }
       int ans=0;
-      for(auto x:v)
+      for(int i=0;i<n;i++)
       {
-        ans=max(ans,d.s[x]);
+        for(int j=0;j<m;j++)
+        {
+          if(grid[i][j]==1)
+          {
+           int p=d.ulp(i*m+j);
+            ans=max(ans,d.s[p]);
+          }
+        }
       }
-      return ans;
       
-        
-        
+      return ans;
     }
 };
