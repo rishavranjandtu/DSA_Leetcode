@@ -25,9 +25,10 @@ public:
       for(auto x:a)
       {
         int tmp=x;
-        while(!s.empty()&&fun(s.top(),tmp)==true)
+        while(!s.empty()&&s.top()>0&&tmp<0)
         {
-          tmp=calc(s.top(),tmp);
+          if(abs(s.top())==abs(tmp)) tmp=0;
+          else tmp=abs(s.top())>abs(tmp)?s.top():tmp;
           s.pop();
           if(tmp==0) break;
         }
